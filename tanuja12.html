@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+  <title>Jeffery Dahmer</title>
+  <style>
+    body {
+      text-align: center;
+      background: url("https://media-magazine.trivago.com/wp-content/uploads/2020/09/03090434/most-beautiful-places-southern-california-san-clemente-credit-brandon-hoogenboom-unsplash1.jpg");
+      background-size: cover;
+      background-position: center;
+      color: blue;
+      font-family: helvetica;
+    }
+    p {
+      font-size: 22px;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      background: purple;
+      color: orange;
+    }
+    img {
+      width:250px;
+      border-radius:50px;
+      }
+  </style>
+</head>
+
+<body>
+  <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/killer-colours-blue-jeffrey-dahmer-eternityboxart.jpg">
+  <p>Hi! I'm Jeffery Dahmer, I am a serial killer. Say hello!</p>
+  <input id="Name" placeholder="Your name">
+  <input id="Email" type="email" placeholder="Your email">
+  <input id="submit" type="submit">
+		
+		<script type="module">
+		  // Import the functions you need from the SDKs you need
+		  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+
+				
+
+		  // TODO: Add SDKs for Firebase products that you want to use
+		  // https://firebase.google.com/docs/web/setup#available-libraries
+
+		  // Your web app's Firebase configuration
+		  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		  const firebaseConfig = {
+		    apiKey: "AIzaSyBiyee1NDsesMbfbx3tYFonePOcQRLTJV8",
+		    authDomain: "tanujal.firebaseapp.com",
+		    projectId: "tanujal",
+		    storageBucket: "tanujal.appspot.com",
+		    messagingSenderId: "252435097764",
+		    appId: "1:252435097764:web:1d007e4e1e47ae5e8dde31",
+		    measurementId: "G-BC1LP7H1NG"
+		  };
+
+		  // Initialize Firebase
+		  const app = initializeApp(firebaseConfig);
+				const db = getDatabase(app);
+				
+    const Name = document.querySelector("#Name") 
+    const Email = document.querySelector("#Email")
+    document.querySelector('#submit').addEventListener('click', Submit)
+				
+				function Submit() {
+				  const timestamp = buildTimestamp()
+	  
+				  set(ref(db, timestamp), {
+					  Name: Name.value,
+				      email: Email.value,
+				  });
+
+				  Name.value = ""
+				  Email.value = ""
+				}
+		
+		
+				function buildTimestamp() {
+				  const now = new Date();
+				  let timestamp = now.getFullYear().toString() + "/";
+				  //const month = now.toLocaleString('default', { month: 'long' });
+
+				  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+				  month = month.toString()
+				  month = addLeadingZero(month)
+				  timestamp += month + "/"; 
+
+				  let date = now.getDate().toString()
+				  date = addLeadingZero(date)
+				  timestamp += date + "/";
+
+				  let hours = now.getHours().toString()
+				  hours = addLeadingZero(hours)
+				  timestamp += hours + ":";
+
+				  let minutes = now.getMinutes().toString()
+				  minutes = addLeadingZero(minutes)
+				  timestamp += minutes + ":";
+
+				  let seconds = now.getSeconds().toString()
+				  seconds = addLeadingZero(seconds)
+				  timestamp += seconds;
+  
+				  return timestamp
+				}
+	
+				function addLeadingZero(units) {
+					if (units.length < 2) {
+						units = "0" + units
+					}
+					return units
+				}
+	
+		
+			
+
+		</script>
+		
+</body>
